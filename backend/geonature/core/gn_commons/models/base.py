@@ -88,7 +88,9 @@ class TModules(DB.Model):
     module_label = DB.Column(DB.Unicode)
     module_picto = DB.Column(DB.Unicode)
     module_desc = DB.Column(DB.Unicode)
-    module_group = DB.Column(DB.Unicode)
+    id_module_group = DB.Column(
+        DB.Integer, ForeignKey("gn_commons.bib_module_groups.id_module_group")
+    )
     module_path = DB.Column(DB.Unicode)
     module_external_url = DB.Column(DB.Unicode)
     module_target = DB.Column(DB.Unicode)
@@ -108,6 +110,14 @@ class TModules(DB.Model):
 
     def __str__(self):
         return self.module_label.capitalize()
+
+
+@serializable
+class BibModuleGroups(DB.Model):
+    __tablename__ = "bib_module_groups"
+    __table_args__ = {"schema": "gn_commons"}
+    id_module_group = DB.Column(DB.Integer, primary_key=True)
+    group_name = DB.Column(DB.Unicode)
 
 
 @serializable(exclude=["base_dir"])
