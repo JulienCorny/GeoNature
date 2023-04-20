@@ -21,7 +21,9 @@ def upgrade():
         """
         CREATE TABLE IF NOT EXISTS gn_commons.bib_module_groups (
         id_module_group integer NOT NULL,
-        group_name character varying(255) NOT NULL
+        group_name character varying(255) NOT NULL,
+        picto_color character varying(20),
+        hover_color character varying(20)
         );
 
         ALTER TABLE ONLY gn_commons.bib_module_groups
