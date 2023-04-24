@@ -61,7 +61,11 @@ def list_modules():
     q = TModules.query.options(joinedload(TModules.objects))
     if "exclude" in params:
         q = q.filter(TModules.module_code.notin_(params.getlist("exclude")))
-    q = q.order_by(TModules.module_order.asc()).order_by(TModules.module_label.asc())
+    q = (
+        q.order_by(TModules.id_module_group.asc())
+        .order_by(TModules.module_order.asc())
+        .order_by(TModules.module_label.asc())
+    )
     modules = q.all()
     allowed_modules = []
     for module in modules:

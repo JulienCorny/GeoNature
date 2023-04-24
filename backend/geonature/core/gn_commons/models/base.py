@@ -73,6 +73,16 @@ def _resolve_import_cor_object_module():
 
 
 @serializable
+class BibModuleGroups(DB.Model):
+    __tablename__ = "bib_module_groups"
+    __table_args__ = {"schema": "gn_commons"}
+    id_module_group = DB.Column(DB.Integer, primary_key=True)
+    group_name = DB.Column(DB.Unicode)
+    picto_color = DB.Column(DB.Unicode)
+    hover_color = DB.Column(DB.Unicode)
+
+
+@serializable
 class TModules(DB.Model):
     __tablename__ = "t_modules"
     __table_args__ = {"schema": "gn_commons"}
@@ -108,16 +118,10 @@ class TModules(DB.Model):
     )
     # relationship datasets add via backref
 
+    group = DB.relationship("BibModuleGroups", lazy=False)
+
     def __str__(self):
         return self.module_label.capitalize()
-
-
-@serializable
-class BibModuleGroups(DB.Model):
-    __tablename__ = "bib_module_groups"
-    __table_args__ = {"schema": "gn_commons"}
-    id_module_group = DB.Column(DB.Integer, primary_key=True)
-    group_name = DB.Column(DB.Unicode)
 
 
 @serializable(exclude=["base_dir"])
